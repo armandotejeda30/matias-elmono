@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  /* Paleta "Jorge el Curioso" */
+  --color-banana: #ffcf3f;      /* Amarillo sombrero del hombre de amarillo */
+  --color-banana-dark: #f5b300;
+  --color-jorge-red: #e63946;   /* Playera de Jorge */
+  --color-jorge-red-dark: #c22433;
+  --color-fur: #8b5e3c;         /* Café pelaje del mono */
+  --color-fur-dark: #5d3a22;
+  --color-sky-fun: #43c6f4;     /* Azul celeste vibrante */
+  --color-sky-fun-dark: #1faddd;
+  --color-whatsapp: #25d366;
+  --color-whatsapp-dark: #1da851;
+  --color-cream: #fff8e6;
+
+  --font-display: "Fredoka", "Nunito", system-ui, sans-serif;
+  --font-body: "Nunito", system-ui, sans-serif;
+
+  --shadow-card: 0 10px 25px -5px rgb(93 58 34 / 0.18);
+  --shadow-card-hover: 0 18px 35px -5px rgb(93 58 34 / 0.28);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-cream);
+  color: var(--color-fur-dark);
+  overflow-x: hidden;
+}
+
+/* Patrón sutil de lunares para el fondo del hero */
+.dot-pattern {
+  background-image: radial-gradient(circle, rgb(93 58 34 / 0.12) 2.5px, transparent 2.5px);
+  background-size: 28px 28px;
+}
+
+/* Patrón de bananas para fondo de hero */
+.banana-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23f5b300' stroke-opacity='.35' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M14 44c8 6 20 6 28-2s10-18 8-26'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 64px 64px;
+}
+
+/* Línea punteada del itinerario */
+.timeline-dotted {
+  background-image: linear-gradient(to bottom, rgb(230 57 70 / 0.7) 50%, transparent 50%);
+  background-size: 2px 12px;
+  background-repeat: repeat-y;
+}
+
+/* Ligeras inclinaciones tipo polaroid */
+.tilt-1 { rotate: -4deg; }
+.tilt-2 { rotate: 3deg; }
+.tilt-3 { rotate: 2.5deg; }
+.tilt-4 { rotate: -3deg; }
+
+/* Pulso del botón RSVP */
+@keyframes rsvp-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgb(37 211 102 / 0.55); }
+  50% { transform: scale(1.04); box-shadow: 0 0 0 14px rgb(37 211 102 / 0); }
+}
+.rsvp-pulse {
+  animation: rsvp-pulse 1.8s ease-in-out infinite;
+}
