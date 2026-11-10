@@ -43,8 +43,8 @@ export default function MusicToggle() {
 
       // Para evitar que active ante cualquier leve desplazamiento, requiere
       // mover al menos 30 px y espera 150 ms antes de reproducir.
-      const threshold = 30
-      const debounceMs = 150
+      const threshold = 5
+      const debounceMs = 50
       let lastY = window.scrollY
       let timer = null
 
