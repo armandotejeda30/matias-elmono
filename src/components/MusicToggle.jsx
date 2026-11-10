@@ -45,6 +45,9 @@ export default function MusicToggle() {
     // Activar música sola al abrir la web
     const AudioCtx = window.AudioContext || window.webkitAudioContext
     const ctx = new AudioCtx()
+    // Iniciar inmediatamente; los navegadores modernos pueden pedir una
+    // primera interacción para poder sonar, pero el audio ya está listo.
+    ctx.resume().catch(() => {})
     const master = ctx.createGain()
     master.gain.value = 0.12
     master.connect(ctx.destination)
@@ -67,6 +70,15 @@ export default function MusicToggle() {
     }
 
     const schedulerId = setInterval(schedule, 200)
+
+    // Proveer un tono inicial inmediato para que el navegador inicie el
+    // audio al cargar la página, en lugar de esperar a un clic.
+    setTimeout(() => {
+      BASS.forEach((midi, i) => {
+        playPlick(ctx, master, midi, ctx.currentTime + i * 0.1, EIGHTH * 0.8)
+      })
+    }, 0)
+
     schedule()
 
     audioRef.current = {
