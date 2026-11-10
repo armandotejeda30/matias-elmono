@@ -1,11 +1,6 @@
 /**
- * 🎵 Música de fondo sin archivos externos: melodía alegre estilo jungla
- * generada con la Web Audio API (funciona 100% offline).
- *
- * ¿Prefieres un mp3? Guarda tu archivo como public/musica.mp3 y reproduce:
- *   const audio = new Audio('/musica.mp3'); audio.loop = true; audio.play()
- * (los navegadores solo permiten sonido tras un clic del usuario,
- * por eso el botón es manual).
+ * 🎵 Música de fondo generada con la Web Audio API (100% offline).
+ * Se activa sola al abrir la web.
  */
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
@@ -47,18 +42,7 @@ export default function MusicToggle() {
   const audioRef = useRef(null) // { ctx, master, timer, schedulerId }
 
   useEffect(() => {
-    return () => audioRef.current?.teardown?.()
-  }, [])
-
-  const toggle = () => {
-    if (playing) {
-      audioRef.current?.teardown?.()
-      audioRef.current = null
-      setPlaying(false)
-      return
-    }
-
-    // Crear contexto de audio
+    // Activar música sola al abrir la web
     const AudioCtx = window.AudioContext || window.webkitAudioContext
     const ctx = new AudioCtx()
     const master = ctx.createGain()
@@ -69,7 +53,6 @@ export default function MusicToggle() {
 
     const schedule = () => {
       while (state.nextNoteTime < ctx.currentTime + LOOP_AHEAD) {
-        // Bass note at the start of each bar
         if (state.noteIdx % BAR_LENGTH === 0) {
           const bassMidi = BASS[Math.floor(state.noteIdx / BAR_LENGTH) % BASS.length]
           playPlick(ctx, master, bassMidi, state.nextNoteTime, BAR_LENGTH * EIGHTH * 0.8)
@@ -93,19 +76,23 @@ export default function MusicToggle() {
       },
     }
     setPlaying(true)
-  }
+
+    return () => {
+      clearInterval(schedulerId)
+      ctx.close().catch(() => {})
+    }
+  }, [])
 
   return (
     <motion.button
       type="button"
-      onClick={toggle}
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: 1, type: 'spring', bounce: 0.5 }}
       whileTap={{ scale: 0.88 }}
       aria-pressed={playing}
-      aria-label={playing ? 'Desactivar música de fondo' : 'Activar música de fondo'}
-      title={playing ? 'Parar música 🎵' : '¡Dale play a la música! 🎵'}
+      aria-label="Pausar música de fondo"
+      title="Pausar música 🎵"
       className="fixed bottom-5 right-5 z-50 flex items-center gap-2 bg-banana text-fur-dark font-display font-semibold rounded-full px-4 py-3 shadow-card-hover border-2 border-white hover:bg-banana-dark transition-colors duration-300 cursor-pointer select-none"
     >
       <motion.span

@@ -18,10 +18,8 @@ export default function GiftTable() {
             Mesa de regalos
           </h3>
           <p className="text-fur font-bold leading-snug">
-            Tu presencia es mi mejor regalo, pero si deseas sorprenderme, me
-            encantan los juguetes de{' '}
-            <span className="text-jorge-red">carros y dinosaurios 🚗🦖</span> o
-            contamos con un buzón para lluvia de sobres en el evento.
+            Salida: sea talla 2 o en efectivo. Incluye un sobre para
+            devolverlo.
           </p>
         </div>
       </FadeIn>
