@@ -42,11 +42,9 @@ export default function MusicToggle() {
   const audioRef = useRef(null) // { ctx, master, timer, schedulerId }
 
   useEffect(() => {
-    // Activar música sola al abrir la web
+    // Iniciar la música sin esperar a un clic.
     const AudioCtx = window.AudioContext || window.webkitAudioContext
     const ctx = new AudioCtx()
-    // Iniciar inmediatamente; los navegadores modernos pueden pedir una
-    // primera interacción para poder sonar, pero el audio ya está listo.
     ctx.resume().catch(() => {})
     const master = ctx.createGain()
     master.gain.value = 0.12
