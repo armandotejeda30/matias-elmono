@@ -35,27 +35,51 @@ export default function MusicToggle() {
     }
   }, [])
 
-  // Inicia el audio al hacer clic en cualquier lado de la pantalla
+  // Inicia el audio cuando el usuario desplaza la página (scroll)
   useEffect(() => {
-    const handleBodyClick = () => {
+    const handleScroll = () => {
       const { ctx, audio, isSuspended } = audioRef.current
       if (!ctx) return
 
-      if (isSuspended) {
-        ctx.resume().then(() => {
-          audio.play().catch(() => {})
-          setActive(true)
-        })
-      } else {
-        if (audio.paused) {
+      // Para evitar que active ante cualquier leve desplazamiento, requiere
+      // mover al menos 30 px y espera 150 ms antes de reproducir.
+      const threshold = 30
+      const debounceMs = 150
+      let lastY = window.scrollY
+      let timer = null
+
+      const start = () => {
+        if (isSuspended) {
+          ctx.resume().then(() => {
+            audio.play().catch(() => {})
+            setActive(true)
+          })
+        } else if (audio.paused) {
           audio.play().catch(() => {})
           setActive(true)
         }
       }
+
+      const onScroll = () => {
+        const currentY = window.scrollY
+        const distance = Math.abs(currentY - lastY)
+        lastY = currentY
+
+        if (distance > threshold) {
+          clearTimeout(timer)
+          timer = setTimeout(start, debounceMs)
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true })
+      return () => {
+        window.removeEventListener('scroll', onScroll)
+        clearTimeout(timer)
+      }
     }
 
-    window.addEventListener('click', handleBodyClick, { once: true })
-    return () => window.removeEventListener('click', handleBodyClick)
+    window.addEventListener('scroll', handleScroll, { once: true })
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   // Al hacer clic en el botón: pausa/reanuda el audio
