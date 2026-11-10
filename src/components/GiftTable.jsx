@@ -18,8 +18,7 @@ export default function GiftTable() {
             Mesa de regalos
           </h3>
           <p className="text-fur font-bold leading-snug">
-            Salida: sea talla 2 o en efectivo. Incluye un sobre para
-            devolverlo.
+            Mono
           </p>
         </div>
       </FadeIn>

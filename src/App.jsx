@@ -21,7 +21,7 @@ export default function App() {
         <Rsvp />
         <Gallery />
         <footer className="bg-banana py-6 text-center font-display font-semibold text-fur-dark">
-          🐵 ¡Gracias por venir a nuestra aventura! 🍌
+          ¡Gracias por venir a nuestra aventura!
         </footer>
       </main>
       <MusicToggle />

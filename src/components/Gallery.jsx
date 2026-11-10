@@ -2,10 +2,10 @@ import FadeIn from './FadeIn'
 import SectionTitle from './SectionTitle'
 
 const POLAROIDS = [
-  { tilt: 'tilt-1', emoji: '🐵', delay: 0 },
-  { tilt: 'tilt-2', emoji: '🍌', delay: 0.1 },
-  { tilt: 'tilt-3', emoji: '🎈', delay: 0.2 },
-  { tilt: 'tilt-4', emoji: '🎩', delay: 0.3 },
+  { src: 'matias1', emoji: '🐵', tilt: 'tilt-1', delay: 0 },
+  { src: 'matias2', emoji: '🍌', tilt: 'tilt-2', delay: 0.1 },
+  { src: 'matias3', emoji: '🎈', tilt: 'tilt-3', delay: 0.2 },
+  { src: 'matias4', emoji: '🎩', tilt: 'tilt-4', delay: 0.3 },
 ]
 
 export default function Gallery() {
@@ -23,7 +23,6 @@ export default function Gallery() {
               key={i}
               className={`${p.tilt} bg-white p-3 pb-10 rounded-xs shadow-card transition-all duration-300 hover:rotate-0 hover:shadow-card-hover hover:z-10 hover:scale-105 cursor-pointer`}
             >
-              {/* Reemplaza este bloque por tu foto: <img src="..." className="w-full h-full object-cover" /> */}
               <div className="aspect-square bg-banana/25 rounded-xs flex items-center justify-center text-6xl select-none">
                 {p.emoji}
               </div>
