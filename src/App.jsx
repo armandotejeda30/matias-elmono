@@ -1,4 +1,5 @@
 import Hero from './components/Hero'
+import ConfettiBurst from './components/ConfettiBurst'
 import EventDetails from './components/EventDetails'
 import Location from './components/Location'
 import GiftTable from './components/GiftTable'
