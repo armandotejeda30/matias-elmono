@@ -8,23 +8,29 @@ const GAME_TYPES = [
 ]
 
 const GAME_ITEMS = [
-  { type: 'Tenis', caja: 1, tallas: ['13', '14'] },
-  { type: 'Tenis', caja: 1, tallas: ['13', '14'] },
-  { type: 'Ropa', caja: 1, tallas: ['4', '6'] },
-  { type: 'Ropa', caja: 1, tallas: ['4', '6'] },
+  { type: 'Tenis', tallas: ['13 - 14'] },
+  { type: 'Ropa', tallas: ['2'] },
 ]
 
-const wrapItems = (items) => {
-  if (items.length === 0) return items
-  const col = Math.ceil(Math.sqrt(items.length))
-  const wrapped = []
-  for (let i = 0; i < items.length; i += col) {
-    wrapped.push(items.slice(i, i + col))
-  }
-  return wrapped
-}
+const rows = GAME_ITEMS.map((item) => (
+  <div key={item.type} className="flex flex-col gap-3">
+    {item.tallas.map((t) => (
+      <div
+        key={t}
+        className="flex items-center justify-center gap-3 rounded-[1.25rem] border-2 border-jorge-red bg-white/90 px-3 py-2 text-center shadow-card-sm backdrop-blur-sm"
+      >
+        <span className="text-lg font-bold text-fur-dark">
+          {item.type}
+        </span>
+        <span className="text-sm font-bold text-jorge-red">
+          {t}
+        </span>
+      </div>
+    ))}
+  </div>
+))
 
-const rows = wrapItems(GAME_ITEMS)
+const EMOJI = { Tenis: '🎾', Ropa: '👕' }
 
 export default function GiftTable() {
   return (
@@ -42,37 +48,11 @@ export default function GiftTable() {
             Mesa de regalos
           </h3>
           <p className="text-fur font-bold leading-snug">
-            Mono
+            Sugerencia de regalos
           </p>
 
-          <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4">
-            {rows.map((row, ri) => (
-              <div
-                key={ri}
-                className="flex flex-col gap-3"
-              >
-                {row.map((item, ii) => (
-                  <div
-                    key={ii}
-                    className="flex items-center justify-center gap-3 rounded-[1.25rem] border-2 border-bana-border bg-white/90 px-3 py-2 text-center shadow-card-sm backdrop-blur-sm"
-                  >
-                    <span className="text-lg font-bold text-fur-dark">
-                      {item.type}
-                    </span>
-                    <span className="text-sm font-bold text-jorge-red">
-                      {item.tallas.map((t, ti) => (
-                        <span
-                          key={ti}
-                          className="border border-jorge-red/50 rounded px-1.5 py-0.5 font-semibold text-xs"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            ))}
+          <div className="mt-8 grid grid-cols-2 gap-6 sm:gap-8">
+            {rows}
           </div>
         </div>
       </FadeIn>
