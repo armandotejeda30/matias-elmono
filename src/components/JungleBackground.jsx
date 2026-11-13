@@ -10,7 +10,8 @@
  */
 import { motion } from 'framer-motion'
 
-// Usa las fotos .png de public/ hasta la 16.
+// Usa las fotos .png de public/ hasta la 16, pero solo las 8 primeras,
+// para que el fondo no se haga cargoso.
 const PHOTOS = [
   'matias1.png',
   'matias2.png',
@@ -20,19 +21,11 @@ const PHOTOS = [
   'matias6.png',
   'matias7.png',
   'matias8.png',
-  'matias9.png',
-  'matias10.png',
-  'matias11.png',
-  'matias12.png',
-  'matias13.png',
-  'matias14.png',
-  'matias15.png',
-  'matias16.png',
 ]
 
 const CIRCLE = 'rounded-full'
 
-// Distribución aleatoria: las 16 fotos se barajan y se asignan a 16 filetes
+// Distribución aleatoria: las 8 fotos se barajan y se asignan a 8 filetes
 // con posiciones Y distintas, en vez de estar apiladas en unos pocos niveles.
 function shuffledPhotos() {
   const list = [...PHOTOS]
