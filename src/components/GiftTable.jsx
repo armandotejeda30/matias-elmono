@@ -1,32 +1,33 @@
 import FadeIn from './FadeIn'
 import Gift from 'lucide-react/dist/esm/icons/gift'
 import { motion } from 'framer-motion'
+import ShoppingBag from 'lucide-react/dist/esm/icons/shopping-bag'
+import Banknote from 'lucide-react/dist/esm/icons/banknote'
 
 const GAME_TYPES = [
   { name: 'Tenis', paquete: ['8', '10'] },
-  { name: 'Ropa', paquete: ['3'] },
+  { name: 'Ropa', paquete: ['2'] },
 ]
 
 const GAME_ITEMS = [
-  { type: 'Tenis', tallas: ['13 - 14'] },
-  { type: 'Ropa', tallas: ['2'] },
+  { type: 'Ropa', tallas: ['talla 2'] },
+  { type: 'Efectivo', tallas: [''] },
 ]
 
 const rows = GAME_ITEMS.map((item) => (
-  <div key={item.type} className="flex flex-col gap-3">
-    {item.tallas.map((t) => (
-      <div
-        key={t}
-        className="flex items-center justify-center gap-3 rounded-[1.25rem] border-2 border-jorge-red bg-white/90 px-3 py-2 text-center shadow-card-sm backdrop-blur-sm"
-      >
-        <span className="text-lg font-bold text-fur-dark">
-          {item.type}
-        </span>
-        <span className="text-sm font-bold text-jorge-red">
-          {t}
-        </span>
+  <div key={item.type} className="flex flex-col items-center gap-3 py-4">
+    <div className="flex items-center justify-center">
+      <div className="w-16 h-16 rounded-full bg-white border-2 border-jorge-red flex items-center justify-center shadow-card-sm">
+        {item.type === 'Ropa' ? (
+          <ShoppingBag size={32} className="text-sky-fun-dark" />
+        ) : (
+          <Banknote size={32} className="text-jorge-red" />
+        )}
       </div>
-    ))}
+    </div>
+    <span className="text-sm font-bold text-fur-dark">
+      {item.type} {item.tallas[0]}
+    </span>
   </div>
 ))
 
@@ -51,7 +52,7 @@ export default function GiftTable() {
             Sugerencia de regalos
           </p>
 
-          <div className="mt-8 grid grid-cols-2 gap-6 sm:gap-8">
+          <div className="mt-8 grid grid-cols-2 gap-8">
             {rows}
           </div>
         </div>

@@ -19,7 +19,6 @@ export default function App() {
         <Location />
         <GiftTable />
         <Rsvp />
-        <Gallery />
         <footer className="bg-banana py-6 text-center font-display font-semibold text-fur-dark">
           ¡Gracias por venir a nuestra aventura!
         </footer>

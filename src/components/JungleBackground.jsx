@@ -10,17 +10,46 @@
  */
 import { motion } from 'framer-motion'
 
-// Nombre del archivo sin extensión. Se usa .png en public/.
-const MONO = 'matias1'
+// Usa las fotos .png de public/ hasta la 16.
+const PHOTOS = [
+  'matias1.png',
+  'matias2.png',
+  'matias3.png',
+  'matias4.png',
+  'matias5.png',
+  'matias6.png',
+  'matias7.png',
+  'matias8.png',
+  'matias9.png',
+  'matias10.png',
+  'matias11.png',
+  'matias12.png',
+  'matias13.png',
+  'matias14.png',
+  'matias15.png',
+  'matias16.png',
+]
 
 const CIRCLE = 'rounded-full'
 
-const WALKERS = [
-  { src: MONO, top: '78%', left: 0, size: 'text-4xl', flip: false },
-  { src: 'matias2', top: '24%', left: 0, size: 'text-4xl', flip: true },
-  { src: 'matias3', top: '55%', left: 0, size: 'text-4xl', flip: false },
-  { src: 'matias4', top: '42%', left: 0, size: 'text-4xl', flip: true },
-]
+// Distribución aleatoria: las 16 fotos se barajan y se asignan a 16 filetes
+// con posiciones Y distintas, en vez de estar apiladas en unos pocos niveles.
+function shuffledPhotos() {
+  const list = [...PHOTOS]
+  for (let i = list.length - 1; i > 0; i--) {
+    const j = (Math.random() * (i + 1)) | 0
+    ;[list[i], list[j]] = [list[j], list[i]]
+  }
+  return list
+}
+
+// Cada mono caminante cruza la pantalla de lado a lado.
+const WALKERS = shuffledPhotos().map((src, i) => ({
+  src,
+  top: `${5 + ((i * 137) % 89)}%`,
+  size: 'text-4xl',
+  flip: i % 2 === 0,
+}))
 
 export default function JungleBackground() {
   return (
@@ -28,11 +57,11 @@ export default function JungleBackground() {
       className="fixed inset-0 -z-10 overflow-hidden pointer-events-none select-none"
       aria-hidden="true"
     >
-      {/* Monos caminantes: cruzan la pantalla de lado a lado */}
+      {/* Monos caminantes que cruzan la pantalla de lado a lado */}
       {WALKERS.map((w, i) => (
         <motion.img
           key={i}
-          src={`/${w.src}.png`}
+          src={`/${w.src}`}
           alt=""
           aria-hidden="true"
           className={`absolute ${w.size} select-none ${CIRCLE} opacity-30`}
