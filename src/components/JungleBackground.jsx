@@ -1,17 +1,15 @@
 /** 
  * 🐒 Fondo de monos reales animados para toda la invitación.
  * Capa fija detrás del contenido (pointer-events-none, z negativo):
- *  - Monos caminantes que cruzan la pantalla lentamente.
+ *  - Monos caminadores que cruzan la pantalla lentamente.
  *  - Mono colgado "balanceándose" del borde superior.
  *  - Mono saltarín abajo a la izquierda.
  * Los src son rutas absolutas en public/.
- * Todas las imágenes son 32x32 (text-4xl en este proyecto)
- * y tienen una opacidad baja para no estorbar.
- */
+ * Solo se usan las primeras 6 .png (matias1.png a matias6.png).
+ */ 
 import { motion } from 'framer-motion'
 
-// Usa las fotos .png de public/ hasta la 16, pero solo las 8 primeras,
-// para que el fondo no se haga cargoso.
+// Solo las primeras 6 fotos .png de public/.
 const PHOTOS = [
   'matias1.png',
   'matias2.png',
@@ -19,13 +17,11 @@ const PHOTOS = [
   'matias4.png',
   'matias5.png',
   'matias6.png',
-  'matias7.png',
-  'matias8.png',
 ]
 
 const CIRCLE = 'rounded-full'
 
-// Distribución aleatoria: las 8 fotos se barajan y se asignan a 8 filetes
+// Distribución aleatoria: las 6 fotos se barajan y se asignan a 6 filetes
 // con posiciones Y distintas, en vez de estar apiladas en unos pocos niveles.
 function shuffledPhotos() {
   const list = [...PHOTOS]
