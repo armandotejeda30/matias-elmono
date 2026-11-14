@@ -21,22 +21,12 @@ const PHOTOS = [
 
 const CIRCLE = 'rounded-full'
 
-// Distribución aleatoria: las 6 fotos se barajan y se asignan a 6 filetes
-// con posiciones Y distintas, en vez de estar apiladas en unos pocos niveles.
-function shuffledPhotos() {
-  const list = [...PHOTOS]
-  for (let i = list.length - 1; i > 0; i--) {
-    const j = (Math.random() * (i + 1)) | 0
-    ;[list[i], list[j]] = [list[j], list[i]]
-  }
-  return list
-}
-
-// Cada mono caminante cruza la pantalla de lado a lado.
-const WALKERS = shuffledPhotos().map((src, i) => ({
+// Las 6 fotos se usan en este orden (sin barajar, para que el margen en Y
+// sea predecible y no se repitan posiciones).
+const WALKERS = PHOTOS.map((src, i) => ({
   src,
-  top: `${5 + ((i * 137) % 89)}%`,
-  size: 'text-4xl',
+  top: `${10 + i * 14}%`,
+  y: [0, -24, 0, 18, 0],
   flip: i % 2 === 0,
 }))
 
@@ -57,12 +47,12 @@ export default function JungleBackground() {
           style={{ top: w.top, left: 0 }}
           animate={{
             x: ['-10vw', '108vw'],
-            y: [0, -18, 0, 14, 0],
+            y: w.y,
             rotate: w.flip ? [6, -6, 6] : [-6, 6, -6],
           }}
           transition={{
             x: { duration: 38, delay: 0, repeat: Infinity, ease: 'linear' },
-            y: { duration: 38 / 6, repeat: Infinity, repeatDelay: 38 / 12, ease: 'easeInOut' },
+            y: { duration: 38 / 6, delay: i * 0.25, repeat: Infinity, repeatDelay: 38 / 12, ease: 'easeInOut' },
             rotate: { duration: 38 / 9, repeat: Infinity, ease: 'easeInOut' },
           }}
         />
@@ -73,7 +63,7 @@ export default function JungleBackground() {
         src="/matias5.png"
         alt=""
         aria-hidden="true"
-        className={`absolute left-[8%] top-6 select-none ${CIRCLE} opacity-30`}
+        className={`absolute left-[6%] top-[12%] select-none ${CIRCLE} opacity-30`}
         animate={{ rotate: [-18, 18, -18] }}
         transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
       />
@@ -81,14 +71,14 @@ export default function JungleBackground() {
         src="/matias6.png"
         alt=""
         aria-hidden="true"
-        className={`absolute right-[10%] top-16 select-none ${CIRCLE} opacity-30`}
+        className={`absolute right-[10%] top-[22%] select-none ${CIRCLE} opacity-30`}
         animate={{ rotate: [14, -14, 14] }}
         transition={{ duration: 3.6, repeat: Infinity, ease: 'easeInOut', delay: 0.8 }}
       />
 
       {/* Mono saltarín abajo a la izquierda */}
       <motion.img
-        src="/matias7.png"
+        src="/matias1.png"
         alt=""
         aria-hidden="true"
         className={`absolute left-[4%] bottom-[18%] select-none ${CIRCLE} opacity-30`}
