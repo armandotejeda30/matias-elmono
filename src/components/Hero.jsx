@@ -84,7 +84,7 @@ export default function Hero() {
           className="w-52 h-52 sm:w-72 sm:h-72 rounded-full sm:rounded-[2.5rem] overflow-hidden border-[6px] border-white shadow-card-hover bg-cream"
         >
           <img
-            src="/jorge.jpg"
+            src="/mono-principal.png"
             alt={`${CONFIG.nombre} y Jorge el Curioso`}
             className="w-full h-full object-cover"
           />
